@@ -42,6 +42,17 @@ public class BellmanFordAlgorithm {
         }
     }
 
+    public void shortestPathTo(Vertex targetVertex) {
+        if (targetVertex.getDistance() == Integer.MAX_VALUE) {
+            System.out.println("There is no path from the source vertex to target vertex: " + targetVertex);
+        }
+
+        while (targetVertex.getPredecessor() != null) {
+            System.out.println(targetVertex);
+            targetVertex = targetVertex.getPredecessor();
+        }
+    }
+
     private boolean hasCycle(Edge edge) {
         return edge.getWeight() + edge.getStartVertex().getDistance() < edge.getEndVertex().getDistance();
     }
