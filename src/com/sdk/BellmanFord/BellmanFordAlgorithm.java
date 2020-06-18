@@ -1,5 +1,7 @@
 package com.sdk.BellmanFord;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class BellmanFordAlgorithm {
@@ -11,7 +13,7 @@ public class BellmanFordAlgorithm {
         this.edges = edges;
     }
 
-    public void computePath(Vertex sourceVertex) {
+    public void computeShortestPathFrom(Vertex sourceVertex) {
         sourceVertex.setDistance(0);
 
         for (int i = 0; i < vertices.size() - 1; i++) {
@@ -42,18 +44,27 @@ public class BellmanFordAlgorithm {
         }
     }
 
-    public void shortestPathTo(Vertex targetVertex) {
-        if (targetVertex.getDistance() == Integer.MAX_VALUE) {
-            System.out.println("There is no path from the source vertex to target vertex: " + targetVertex);
-        }
+    public void showShortestPathTo(Vertex targetVertex) {
+        if (targetVertex.getDistance() != Integer.MAX_VALUE) {
+            List<Vertex> vertices = new ArrayList<>();
 
-        while (targetVertex.getPredecessor() != null) {
-            System.out.println(targetVertex);
-            targetVertex = targetVertex.getPredecessor();
+            System.out.println("There is a shortest path to target " + targetVertex + ", with cost " + targetVertex.getDistance());
+
+            vertices.add(targetVertex);
+
+            while (targetVertex.getPredecessor() != null) {
+                targetVertex = targetVertex.getPredecessor();
+                vertices.add(targetVertex);
+            }
+
+            Collections.reverse(vertices);
+            System.out.println(vertices);
+        } else {
+            System.out.println("There is no path from the source vertex to target vertex: " + targetVertex);
         }
     }
 
     private boolean hasCycle(Edge edge) {
-        return edge.getWeight() + edge.getStartVertex().getDistance() < edge.getEndVertex().getDistance();
+        return edge.getStartVertex().getDistance() + edge.getWeight() < edge.getEndVertex().getDistance();
     }
 }
