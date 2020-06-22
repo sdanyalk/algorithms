@@ -20,6 +20,7 @@ public class Main {
         bst.insert(11);
         bst.insert(25);
 
+//        This should throw an error since it is duplicate
 //        bst.insert(11);
 
         System.out.println("Breadth First Traversal");
